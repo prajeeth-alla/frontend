@@ -21,12 +21,11 @@ export class ResellerPage implements OnInit {
   ngOnInit() {
     this.loadVehicles().subscribe((data) => {
       this.vehicleTableData = transformToDTableData(data);
-      console.log('@@');
       this.cdr.detectChanges();
     });
   }
 
   loadVehicles(): Observable<Vehicle[]> {
-    return this.apiService.get<Vehicle[]>('https://qf.ev5.ai/vehicles_data.json');
+    return this.apiService.get<Vehicle[]>('http://10.0.2.9:3000/api/vehicles');
   }
 }
