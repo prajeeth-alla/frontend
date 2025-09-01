@@ -1,0 +1,31 @@
+.layout-root {
+  height: 100vh;
+}
+
+mat-toolbar {
+     border-bottom: 1px solid #ddd;
+}
+
+mat-sidenav {
+    border-radius: 0;
+    border-right: 1px solid #ddd;
+}
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.title {
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.page-content {
+  padding: 16px;
+}

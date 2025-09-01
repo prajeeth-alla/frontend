@@ -1,0 +1,39 @@
+<mat-form-field appearance="outline" class="search-field">
+  <mat-label>{{ placeholder }}</mat-label>
+
+  <!-- Prefix Icon -->
+  @if (prefixIcon) {
+    <button mat-icon-button
+            matPrefix
+            type="button"
+            (click)="onIconClick('prefix')">
+      <mat-icon>{{ prefixIcon }}</mat-icon>
+    </button>
+  }
+
+  <!-- Input -->
+  <input matInput
+         [formControl]="searchControl"
+         [placeholder]="placeholder" />
+
+  <!-- Suffix Icon -->
+  @if (suffixIcon) {
+    <button mat-icon-button
+            matSuffix
+            type="button"
+            (click)="onIconClick('suffix')">
+      <mat-icon>{{ suffixIcon }}</mat-icon>
+    </button>
+  }
+
+  <!-- Clear Icon (Feature Flag) -->
+  @if (enableClear && searchControl.value) {
+    <button mat-icon-button
+            matSuffix
+            type="button"
+            aria-label="Clear"
+            (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+</mat-form-field>

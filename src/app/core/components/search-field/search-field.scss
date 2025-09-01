@@ -1,0 +1,12 @@
+.search-field {
+  width: 100%;
+  max-width: 400px;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  input {
+    padding-right: 36px; // spacing for suffix buttons
+  }
+}
