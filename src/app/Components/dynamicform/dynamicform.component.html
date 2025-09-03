@@ -1,0 +1,81 @@
+<form [formGroup]="userForm" (ngSubmit)="submitForm()" *ngIf="formConfig" class="form-container">
+    <h2 class="form-title">User Form</h2>
+  
+    <div *ngFor="let field of formConfig.fields" class="form-group">
+      <ng-container *ngIf="!field.showIf || userForm.get(field.showIf.field)?.value === field.showIf.value">
+      <label>{{ field.label }}</label>
+  
+      <input
+        *ngIf="field.type === 'text' || field.type === 'password'"
+        [type]="field.type"
+        [placeholder]="field.placeholder"
+        [formControlName]="field.name"
+        class="form-control"
+      />
+  
+      <select *ngIf="field.type === 'select'" [formControlName]="field.name" class="form-control">
+        <option value="">Select {{ field.label }}</option>
+        <option *ngFor="let option of field.options" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+
+<div *ngIf="field.type === 'radio'" class="radio-group">
+  <label *ngFor="let option of field.options" class="radio-label">
+    <input
+      type="radio"
+      [formControlName]="field.name"
+      [value]="option"
+    />
+    {{ option }}
+  </label>
+</div>
+
+<ng-container *ngIf="field.type === 'file' && userForm.get('residency')?.value === 'Indian'">
+  <div class="form-group">
+    <label for="{{ field.name }}">{{ field.label }}</label>
+    <input
+      type="file"
+      (change)="onFileChange($event, field.name)"
+      class="form-control"
+    />
+    <div
+      class="error-message"
+      *ngIf="userForm.get(field.name)?.touched && userForm.get(field.name)?.errors"
+    >
+      <small *ngIf="userForm.get(field.name)?.errors?.['zod']">
+        {{ userForm.get(field.name)?.getError('zod') }}
+      </small>
+    </div>
+  </div>
+</ng-container>
+</ng-container>
+
+      <div *ngIf="field.type === 'checkbox'" class="checkbox-group">
+        <label *ngFor="let option of field.options" class="checkbox-label">
+          <input
+            type="checkbox"
+            [value]="option"
+            (change)="onCheckboxChange($event, field.name)"
+          />
+          {{ option }}
+        </label>
+      </div>
+  
+<div class="error-message" *ngIf="userForm.get(field.name)?.touched && userForm.get(field.name)?.errors">
+  <div *ngFor="let val of field.validations">
+    <small *ngIf="userForm.get(field.name)?.hasError(val.name)">
+      {{ val.message }}
+    </small>
+  </div>
+  <small *ngIf="userForm.get(field.name)?.errors?.['zod']">
+    {{ userForm.get(field.name)?.getError('zod') }}
+  </small>
+</div>
+
+      
+    </div>
+  
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+  

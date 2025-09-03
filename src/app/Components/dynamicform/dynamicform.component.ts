@@ -1,0 +1,96 @@
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormConfigService } from '../../Services/form-config.service';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import {  userZodSchema } from '../../Schema/form-config.schema';
+import { z, ZodError } from 'zod';
+
+@Component({
+  selector: 'app-dynamicform',
+  standalone: true,
+  imports: [CommonModule,FormsModule, ReactiveFormsModule,HttpClientModule],
+  templateUrl: './dynamicform.component.html',
+  styleUrls: ['./dynamicform.component.css'],
+  encapsulation: ViewEncapsulation.None 
+})
+export class DynamicformComponent {
+  @Input() formConfig: any; 
+  @Output() formSubmit = new EventEmitter<any>();
+  userForm!: FormGroup;
+  form!: FormGroup; 
+  constructor(
+    private fb: FormBuilder,
+    private configService: FormConfigService
+  ) {}
+
+  ngOnInit() {
+    this.configService.getFormConfig().subscribe((config) => {
+      this.formConfig = config;
+      this.buildForm();
+    });
+  }
+
+  buildForm() {
+    const group: any = {};
+
+    this.formConfig.fields.forEach((field: any) => {
+      if (field.type === 'checkbox') {
+        group[field.name] = this.fb.array([]);
+      } else {
+        group[field.name] = [null]; 
+      }
+    });
+
+    this.userForm = this.fb.group(group);
+  }
+
+  onCheckboxChange(event: any, fieldName: string) {
+    const formArray: FormArray = this.userForm.get(fieldName) as FormArray;
+    if (event.target.checked) {
+      formArray.push(this.fb.control(event.target.value));
+    } else {
+      const index = formArray.controls.findIndex(x => x.value === event.target.value);
+      formArray.removeAt(index);
+    }
+  }
+
+  
+  submitForm() {
+    Object.keys(this.userForm.controls).forEach(key => {
+      const control = this.userForm.get(key);
+      if (control?.errors?.['zod']) {
+        const { zod, ...otherErrors } = control.errors!;
+        control.setErrors(Object.keys(otherErrors).length ? otherErrors : null);
+      }
+    });
+
+    const formValue = this.userForm.value;
+
+    try {
+      userZodSchema.parse(formValue);
+      console.log('Zod Validation Passed:', formValue);
+      this.formSubmit.emit(formValue);
+    } catch (err: any) {
+      if (err instanceof ZodError) {
+        console.error('Zod Validation Errors:', err.issues);
+
+        err.issues.forEach((e: any) => {
+          const control = this.userForm.get(e.path[0]);
+          if (control) {
+            control.setErrors({ ...control.errors, zod: e.message });
+            control.markAsTouched();
+            control.updateValueAndValidity({ emitEvent: false });
+          }
+        });
+      } else {
+        console.error('Unexpected error:', err);
+      }
+    }
+  }
+
+  onFileChange(event: any, fieldName: string) {
+    const file = event.target.files?.[0] || null;
+    this.userForm.get(fieldName)?.setValue(file);
+  }
+}
