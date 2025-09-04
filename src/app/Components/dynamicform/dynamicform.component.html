@@ -1,5 +1,5 @@
 <form [formGroup]="userForm" (ngSubmit)="submitForm()" *ngIf="formConfig" class="form-container">
-    <h2 class="form-title">User Form</h2>
+    <h2 class="form-title">{{formConfig.formName}}</h2>
   
     <div *ngFor="let field of formConfig.fields" class="form-group">
       <ng-container *ngIf="!field.showIf || userForm.get(field.showIf.field)?.value === field.showIf.value">

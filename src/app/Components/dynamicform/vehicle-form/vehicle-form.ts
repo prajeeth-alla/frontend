@@ -1,23 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { userFormConfig } from '../../../Config/user-form.config';
+import { vehicleFormConfig } from '../../../Config/vehicle-form.config';
 import { DynamicformComponent } from '../dynamicform.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { FormConfigService } from '../../../Services/form-config.service';
 
 @Component({
-  selector: 'app-user-form',
-  standalone: true,
+  selector: 'app-vehicle-form',
   imports: [DynamicformComponent],
-  templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.css',
+  templateUrl: './vehicle-form.html',
+  styleUrl: './vehicle-form.scss'
 })
-export class UserFormComponent implements OnInit {
+export class VehicleForm implements OnInit {
   formConfig: any;
   private readonly configService = inject(FormConfigService);
 
   ngOnInit(): void {
-    this.configService.getUserFormConfig().subscribe((config: any) => {
+    this.configService.getVehicleFormConfig().subscribe((config: any) => {
       this.formConfig = config;
     });
   }

@@ -1,34 +1,44 @@
-import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FormConfigService } from '../../Services/form-config.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import {  userZodSchema } from '../../Schema/form-config.schema';
+import { userZodSchema } from '../../Schema/form-config.schema';
 import { z, ZodError } from 'zod';
 
 @Component({
   selector: 'app-dynamicform',
   standalone: true,
-  imports: [CommonModule,FormsModule, ReactiveFormsModule,HttpClientModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './dynamicform.component.html',
   styleUrls: ['./dynamicform.component.css'],
-  encapsulation: ViewEncapsulation.None 
+  encapsulation: ViewEncapsulation.None,
 })
-export class DynamicformComponent {
-  @Input() formConfig: any; 
+export class DynamicformComponent implements OnInit {
+  @Input() formConfig: any;
   @Output() formSubmit = new EventEmitter<any>();
-  userForm!: FormGroup;
-  form!: FormGroup; 
-  constructor(
-    private fb: FormBuilder,
-    private configService: FormConfigService
-  ) {}
 
-  ngOnInit() {
-    this.configService.getFormConfig().subscribe((config) => {
-      this.formConfig = config;
-      this.buildForm();
-    });
+  private readonly fb = inject(FormBuilder);
+  userForm!: FormGroup;
+  form!: FormGroup;
+
+  ngOnInit(): void {
+    this.buildForm();
   }
 
   buildForm() {
@@ -38,7 +48,7 @@ export class DynamicformComponent {
       if (field.type === 'checkbox') {
         group[field.name] = this.fb.array([]);
       } else {
-        group[field.name] = [null]; 
+        group[field.name] = [null];
       }
     });
 
@@ -50,14 +60,13 @@ export class DynamicformComponent {
     if (event.target.checked) {
       formArray.push(this.fb.control(event.target.value));
     } else {
-      const index = formArray.controls.findIndex(x => x.value === event.target.value);
+      const index = formArray.controls.findIndex((x) => x.value === event.target.value);
       formArray.removeAt(index);
     }
   }
 
-  
   submitForm() {
-    Object.keys(this.userForm.controls).forEach(key => {
+    Object.keys(this.userForm.controls).forEach((key) => {
       const control = this.userForm.get(key);
       if (control?.errors?.['zod']) {
         const { zod, ...otherErrors } = control.errors!;
