@@ -1,0 +1,90 @@
+@if (userForm) {
+  <form [formGroup]="userForm" (ngSubmit)="submitForm()" class="form-container">
+    <h2 class="form-title">{{ formConfig.formName }}</h2>
+
+    @for (field of formConfig.fields; track field.name) {
+      @if (!field.showIf || userForm.get(field.showIf.field)?.value === field.showIf.value) {
+      <div class="form-group">
+        @if (!field.showIf || userForm.get(field.showIf.field)?.value === field.showIf.value) {
+          <label>{{ field.label }}</label>
+
+          @if (field.type === 'text' || field.type === 'password') {
+            <input
+              [type]="field.type"
+              [placeholder]="field.placeholder"
+              [formControlName]="field.name"
+              class="form-control"
+            />
+          }
+
+          <!-- Validation error -->
+          @if (userForm.get(field.name)?.invalid && (userForm.get(field.name)?.dirty || userForm.get(field.name)?.touched)) {
+            @if (userForm.get(field.name)?.hasError('zod')) {
+              <small class="error-message">
+                {{ userForm.get(field.name)?.getError('zod') }}
+              </small>
+            }
+          }
+
+          @if (field.type === 'select') {
+            <select [formControlName]="field.name" class="form-control">
+              <option value="">Select {{ field.label }}</option>
+              @for (option of field.options; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          }
+
+          @if (field.type === 'radio') {
+            <div class="radio-group">
+              @for (option of field.options; track option) {
+                <label class="radio-label">
+                  <input
+                    type="radio"
+                    [formControlName]="field.name"
+                    [value]="option"
+                  />
+                  {{ option }}
+                </label>
+              }
+            </div>
+          }
+
+          @if (field.type === 'file' && userForm.get('residency')?.value === 'Indian') {
+            <div class="form-group">
+              <label for="{{ field.name }}">{{ field.label }}</label>
+              <input
+                type="file"
+                (change)="onFileChange($event, field.name)"
+                class="form-control"
+              />
+              @if (userForm.get(field.name)?.touched && userForm.get(field.name)?.hasError('zod')) {
+                <small class="error-message">
+                  {{ userForm.get(field.name)?.getError('zod') }}
+                </small>
+              }
+            </div>
+          }
+        }
+      </div>
+
+      @if (field.type === 'checkbox') {
+        <div class="checkbox-group">
+          @for (option of field.options; track option) {
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                [value]="option"
+                (change)="onCheckboxChange($event, field.name)"
+              />
+              {{ option }}
+            </label>
+          }
+        </div>
+      }
+    }
+  }
+
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+}
