@@ -42,9 +42,9 @@ export const userFormConfig = {
       {
         name: "gender",
         label: "Gender",
-        type: "checkbox",
+        type: "radio",
         options: ["Male", "Female", "Other"],
-        validations: []
+        validations: [ { name: "required", message: "Gender is required" }]
       },
       {
         name: "password",
@@ -78,7 +78,7 @@ export const userFormConfig = {
       },
       {
         name: "aadhaarImage",
-        label: "Aadhaar Image",
+        // label: "Aadhaar Image",
         type: "file",
         placeholder: "Upload Aadhaar image",
         validations: [],

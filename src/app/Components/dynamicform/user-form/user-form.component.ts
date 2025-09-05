@@ -8,7 +8,7 @@ import { FormConfigService } from '../../../Services/form-config.service';
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [DynamicformComponent],
+  imports: [DynamicformComponent,CommonModule],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css',
 })

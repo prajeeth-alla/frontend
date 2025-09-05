@@ -38,7 +38,11 @@ export class DynamicformComponent implements OnInit {
   form!: FormGroup;
 
   ngOnInit(): void {
-    this.buildForm();
+    if (this.formConfig) {
+      this.buildForm();
+    } else {
+      console.warn('formConfig is not yet loaded');
+    }
   }
 
   buildForm() {
@@ -72,12 +76,16 @@ export class DynamicformComponent implements OnInit {
         const { zod, ...otherErrors } = control.errors!;
         control.setErrors(Object.keys(otherErrors).length ? otherErrors : null);
       }
+      if (control?.invalid) {
+        control.markAsTouched({ onlySelf: true });
+      }
     });
 
     const formValue = this.userForm.value;
 
     try {
       userZodSchema.parse(formValue);
+      delete formValue.confirmPassword;
       console.log('Zod Validation Passed:', formValue);
       this.formSubmit.emit(formValue);
     } catch (err: any) {
@@ -87,7 +95,7 @@ export class DynamicformComponent implements OnInit {
         err.issues.forEach((e: any) => {
           const control = this.userForm.get(e.path[0]);
           if (control) {
-            control.setErrors({ ...control.errors, zod: e.message });
+            control.setErrors({ ...(control.errors || {}), zod: e.message });
             control.markAsTouched();
             control.updateValueAndValidity({ emitEvent: false });
           }

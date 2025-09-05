@@ -88,20 +88,29 @@ export function buildZodSchema(config: any) {
             });
           }
 
-          if (field.name === 'age' && val) {
-            const ageNum = Number(val);
-            if (isNaN(ageNum)) {
+          if (field.name === 'age' && data['country'] === 'India') {
+            const val = data[field.name];
+            if (!val || val.trim() === '') {
               ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                path: ['age'],
-                message: 'Age must be a number',
+                path: [field.name],
+                message: 'Age is required when country is India',
               });
-            } else if (ageNum < 18 || ageNum > 100) {
-              ctx.addIssue({
-                code: z.ZodIssueCode.custom,
-                path: ['age'],
-                message: 'Age must be between 18 and 100',
-              });
+            } else {
+              const ageNum = Number(val);
+              if (isNaN(ageNum)) {
+                ctx.addIssue({
+                  code: z.ZodIssueCode.custom,
+                  path: [field.name],
+                  message: 'Age must be a number',
+                });
+              } else if (ageNum < 18 || ageNum > 100) {
+                ctx.addIssue({
+                  code: z.ZodIssueCode.custom,
+                  path: [field.name],
+                  message: 'Age must be between 18 and 100',
+                });
+              }
             }
           }
         }
