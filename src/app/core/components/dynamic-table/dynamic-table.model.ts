@@ -1,4 +1,4 @@
-export interface DTableModel {
+export interface DynamicTableModel {
   headers: TableHeader[];
   data: TableRow[];
 }

@@ -1,0 +1,53 @@
+/* layout/sidebar/sidebar.component.css */
+.sidebar {
+  width: 280px;
+  background-color: #fafafa;
+  border: none;
+  border-radius: 0;
+}
+
+.sidebar-drawer {
+    border-radius: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.close-btn {
+  display: none;
+}
+
+.mdc-list-item__content {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.mat-mdc-nav-list .mat-mdc-list-item {
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.menu-item:hover,
+.menu-item.active {
+  background-color: #1976d2;
+  font-weight: 500;
+  color: white;
+}
+
+.menu-label {
+  margin-left: 12px;
+}
+
+/* Show close button only on handset */
+@media (max-width: 959px) {
+  .close-btn {
+    display: block;
+  }
+}

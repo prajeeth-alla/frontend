@@ -1,0 +1,33 @@
+.admin-layout-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .drawer-container {
+    flex: 1;
+    background-color: #f5f5f5;
+
+    .sidebar-drawer {
+      width: 280px;
+      border: none;
+      border-radius: 0;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-content {
+      padding: 0;
+      background: white;
+
+      .content-wrapper {
+        padding: 20px;
+        min-height: calc(100vh - 64px);
+      }
+
+      @media (max-width: 959px) {
+        .content-wrapper {
+          padding: 16px;
+        }
+      }
+    }
+  }
+}

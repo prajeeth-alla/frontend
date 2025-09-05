@@ -1,11 +1,11 @@
-import { DTableModel, TableHeader } from "./d-table.model";
+import { DynamicTableModel, TableHeader } from "./dynamic-table.model";
 
 /**
  * Converts an array of objects into a table-friendly format.
  * @param items The array of objects to transform
  * @returns TableData with headers and data
  */
-export function transformToDTableData<T extends Record<string, any>>(items: T[]): DTableModel {
+export function transformToDynamicTableData<T extends Record<string, any>>(items: T[]): DynamicTableModel {
   if (items.length === 0) {
     return { headers: [], data: [] };
   }

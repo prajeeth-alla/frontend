@@ -13,8 +13,18 @@
 
   <!-- Input -->
   <input matInput
-         [formControl]="searchControl"
-         [placeholder]="placeholder" />
+         [formControl]="searchControl"/>
+
+    <!-- Clear Icon (Feature Flag) -->
+  <!-- @if (enableClear && searchControl.value) {
+    <button mat-icon-button
+            matSuffix
+            type="button"
+            aria-label="Clear"
+            (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  } -->
 
   <!-- Suffix Icon -->
   @if (suffixIcon) {
@@ -26,14 +36,5 @@
     </button>
   }
 
-  <!-- Clear Icon (Feature Flag) -->
-  @if (enableClear && searchControl.value) {
-    <button mat-icon-button
-            matSuffix
-            type="button"
-            aria-label="Clear"
-            (click)="clearSearch()">
-      <mat-icon>close</mat-icon>
-    </button>
-  }
+
 </mat-form-field>

@@ -1,0 +1,26 @@
+<mat-form-field appearance="outline" class="select-field">
+  <mat-label>{{ label }}</mat-label>
+
+  <mat-select
+    [formControl]="control"
+    [placeholder]="placeholder"
+    (selectionChange)="onSelectionChange($event.value)"
+  >
+    @for (opt of options; track opt.value) {
+      <mat-option [value]="opt.value">
+        {{ opt.label }}
+      </mat-option>
+    }
+  </mat-select>
+
+  @if (enableClear && control.value) {
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      aria-label="Clear"
+      (click)="clearSelection()">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+</mat-form-field>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -6,7 +6,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 @Component({
-  selector: 'app-d-table',
+  selector: 'app-dynamic-table',
   imports: [
     MatPaginatorModule,
     MatTableModule,
@@ -15,10 +15,10 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatSortModule,
   ],
-  templateUrl: './d-table.html',
-  styleUrl: './d-table.scss',
+  templateUrl: './dynamic-table.html',
+  styleUrl: './dynamic-table.scss',
 })
-export class DTable<T> implements OnInit {
+export class DynamicTable<T> implements OnInit, AfterViewInit {
   @Input() headers: { key: string; label: string }[] = [];
   @Input() data: T[] = [];
 

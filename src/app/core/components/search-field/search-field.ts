@@ -1,13 +1,20 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatIcon } from '@angular/material/icon';
-import { MatInput } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-field',
-  imports: [MatFormField, MatLabel, MatIcon, MatInput, ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
   templateUrl: './search-field.html',
   styleUrls: ['./search-field.scss'],
 })
@@ -15,8 +22,8 @@ export class SearchField implements OnInit {
   @Input() placeholder: string = 'Search...';
   @Input() debounceTime = 300;
 
-  @Input() prefixIcon?: string; // Material icon name e.g. 'search'
-  @Input() suffixIcon?: string; // Material icon name e.g. 'tune'
+  @Input() prefixIcon?: string;
+  @Input() suffixIcon: string = 'search';
   @Input() enableClear: boolean = true;
 
   @Output() search = new EventEmitter<string>();
@@ -35,6 +42,8 @@ export class SearchField implements OnInit {
   }
 
   onIconClick(type: 'prefix' | 'suffix') {
+    console.log(this.searchControl.value);
+    
     this.iconClick.emit(type);
   }
 }
