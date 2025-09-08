@@ -1,0 +1,7 @@
+<div class="image-gallery">
+  @for (image of images; track $index) {
+    <div class="image-item">
+      <img [src]="image.imageUrl" alt="Image" />
+    </div>
+  }
+</div>

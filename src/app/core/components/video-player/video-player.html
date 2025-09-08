@@ -1,0 +1,15 @@
+<div class="rx-player-wrapper">
+  <div class="aspect-ratio">
+    @if (isPlaying) {
+    <div class="player">
+      <video #videoEl controls playsinline width="640" height="360"></video>
+    </div>
+    }@else {
+
+    <div class="thumbnail" (click)="play()">
+      <img [src]="video.thumbUrl" [alt]="video.title || 'Video thumbnail'" />
+      <button class="play-btn">▶</button>
+    </div>
+    }
+  </div>
+</div>

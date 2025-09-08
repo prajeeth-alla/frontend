@@ -10,6 +10,7 @@ export const routes: Routes = [
       {
         path: 'login',
         loadComponent: () => import('./pages/auth/login-page/login-page').then((c) => c.LoginPage),
+        data: { breadcrumb: 'Login' },
       },
     ],
   },
@@ -20,18 +21,29 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo:'vehicles',
-        pathMatch: 'full'
+        redirectTo: 'vehicles-list',
+        pathMatch: 'full',
+        data: { breadcrumb: 'Home' },
       },
       {
         path: 'resellers',
         loadComponent: () =>
           import('./pages/admin/reseller-page/reseller-page').then((c) => c.ResellerPage),
+        data: { breadcrumb: 'Resellers' },
       },
       {
-        path: 'vehicles',
+        path: 'vehicles-list',
         loadComponent: () =>
           import('./pages/admin/vehicles-page/vehicles-page').then((c) => c.VehiclesPage),
+        data: { breadcrumb: 'Vehicles' },
+      },
+      {
+        path: 'vehicles-details/:vehicleId',
+        loadComponent: () =>
+          import('./pages/admin/vehicle-details-page/vehicle-details-page').then(
+            (c) => c.VehicleDetailsPage
+          ),
+        data: { breadcrumb: 'Vehicle Details' },
       },
     ],
   },

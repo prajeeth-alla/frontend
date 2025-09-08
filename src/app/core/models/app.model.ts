@@ -9,3 +9,8 @@ export interface Option {
   value: any;
   label: string;
 }
+
+export interface Breadcrumb {
+  label: string;
+  url: string;
+}

@@ -1,1 +1,87 @@
-<p>vehicle-details-page works!</p>
+<div class="vehicle-info">
+  <div class="left">
+    <h1>{{ vehicleDetails?.make }} {{ vehicleDetails?.model }} ({{ vehicleDetails?.year }})</h1>
+    <h3>
+      {{ vehicleDetails?.body_type }} | {{ vehicleDetails?.trim }} |
+      {{ vehicleDetails?.veh_listing_type }}
+    </h3>
+  </div>
+  <div class="right">
+    @if (vehicleDetails?.rooftop) {
+    <h3>Rooftop</h3>
+    <p>
+      {{ vehicleDetails?.rooftop?.name }}, {{ vehicleDetails?.rooftop.city }},
+      {{ vehicleDetails?.rooftop.state }}
+    </p>
+    }
+  </div>
+</div>
+
+<div class="grid-layout">
+  <div class="vehicle-main-image">
+    <img src="https://gcb.vd.onl/clients/11764/images/500B46A5-E64F-0B13-E892-D1A6F69C5EC9/960/500B46A5-E64F-0B13-E892-D1A6F69C5EC9_f00010.jpg" alt="" />
+  </div>
+  <div class="specs-section">
+    <h3>SPECIFICATIONS</h3>
+    @if (vehicleDetails?.miles) {
+    <div class="spec-item">
+      <mat-icon>flag</mat-icon>
+      <strong>Miles:</strong>
+      <span>{{ vehicleDetails?.miles | miles }}</span>
+    </div>
+    } @if (vehicleDetails?.engine) {
+    <div class="spec-item">
+      <mat-icon>settings</mat-icon>
+      <strong>Engine:</strong>
+      <span>{{ vehicleDetails?.engine }}</span>
+    </div>
+    } @if (vehicleDetails?.ext_color) {
+    <div class="spec-item">
+      <mat-icon>format_color_fill</mat-icon>
+      <strong>Color:</strong>
+      <div
+        class="color-indicator"
+        [ngStyle]="{ 'background-color': vehicleDetails?.ext_color }"
+      ></div>
+    </div>
+    } @if (vehicleDetails?.status) {
+    <div class="spec-item">
+      <mat-icon>question_mark</mat-icon>
+      <strong>Status:</strong>
+      <span>{{ vehicleDetails?.status }}</span>
+    </div>
+    }
+
+    <div class="action-buttons">
+      <button matButton="filled" (click)="handleImageGallery()">
+        <mat-icon>image</mat-icon> Images
+      </button>
+      <button matButton="filled" (click)="handleVideo()">
+        <mat-icon>play_circle</mat-icon> Videos
+      </button>
+      <button matButton="filled" (click)="handle360Spin()">
+        <mat-icon>360</mat-icon> 360 Spin
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="preview-section">
+  @if (vehicleVideo) {
+  <div class="video-preview">
+    <h3>{{ vehicleVideo.title }}</h3>
+    <app-video-player [video]="vehicleVideo" />
+  </div>
+
+  } @if (vehicleImages) {
+  <div class="images-preview">
+    <h3>Vehicle Images</h3>
+    <app-image-gallery [images]="vehicleImages" />
+  </div>
+  } @if (vehicle360Spin) {
+  <div class="spin-360">
+    <app-spin-360 [spin360Data]="vehicle360Spin" />
+  </div>
+
+  }
+</div>

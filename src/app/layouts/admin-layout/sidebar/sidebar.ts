@@ -10,19 +10,12 @@ import { MenuService } from '../../../core/services/menu-service/menu-service';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [
-    MatSidenav,
-    MatIcon,
-    MatNavList,
-    MatListItem,
-    RouterLink,
-    RouterLinkActive
-  ],
+  imports: [MatSidenav, MatIcon, MatNavList, MatListItem, RouterLink, RouterLinkActive],
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.scss'
+  styleUrl: './sidebar.scss',
 })
 export class Sidebar {
-isOpen = input<boolean>(true);
+  isOpen = input<boolean>(true);
   sidebarClosed = output<void>();
 
   private readonly breakpointObserver = inject(BreakpointObserver);
@@ -30,7 +23,7 @@ isOpen = input<boolean>(true);
 
   isHandset = toSignal(
     this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-      map(result => result.matches),
+      map((result) => result.matches),
       shareReplay()
     ),
     { initialValue: false }
@@ -38,7 +31,7 @@ isOpen = input<boolean>(true);
 
   menuItems = this.menuService.menuItems;
 
-  sidenavMode = () => this.isHandset() ? 'over' : 'side';
+  sidenavMode = () => (this.isHandset() ? 'over' : 'side');
 
   closeSidebar(): void {
     if (this.isHandset()) {

@@ -1,21 +1,23 @@
 <div class="admin-layout-container">
-  <app-header (menuToggled)="toggleSidebar()" />
-  
-  <mat-drawer-container class="drawer-container">
-    <mat-drawer 
-      [mode]="'side'" 
-      [opened]="isSidebarOpen()" 
+  <app-header (menuToggled)="toggleSidebar()"></app-header>
+
+  <mat-drawer-container class="drawer-container" autosize>
+    <!-- Sidebar -->
+    <mat-drawer
+      #drawer
+      [mode]="drawerMode"
+      [opened]="isSidebarOpen()"
       class="sidebar-drawer"
+      (closedStart)="closeSidebar()"
     >
-      <app-sidebar 
-        [isOpen]="isSidebarOpen()" 
-        (sidebarClosed)="closeSidebar()" 
-      />
+      <app-sidebar [isOpen]="isSidebarOpen()" (sidebarClosed)="closeSidebar()"></app-sidebar>
     </mat-drawer>
-    
+
+    <!-- Main Content -->
     <mat-drawer-content class="main-content">
       <div class="content-wrapper">
-        <router-outlet />
+        <app-breadcrumb />
+        <router-outlet></router-outlet>
       </div>
     </mat-drawer-content>
   </mat-drawer-container>

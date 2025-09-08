@@ -10,6 +10,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { SelectField } from '../../../core/components/select-field/select-field';
 import { Option } from '../../../core/models/app.model';
 import { Helper } from '../../../core/services/helper/helper';
+import { Router } from '@angular/router';
+import { Vehicle } from '../../../core/models/vehicle.model';
 
 @Component({
   selector: 'app-vehicles-page',
@@ -28,13 +30,14 @@ import { Helper } from '../../../core/services/helper/helper';
   styleUrl: './vehicles-page.scss',
 })
 export class VehiclesPage implements OnInit, AfterViewInit {
+  private readonly router = inject(Router);
+  private readonly vehicleService = inject(VehicleService);
+  private readonly helper = inject(Helper);
   filterValues = {
     search: '',
     resellerId: null as number | null,
   };
 
-  private readonly vehicleService = inject(VehicleService);
-  private readonly helper = inject(Helper);
   displayedColumns: string[] = [
     'id',
     'make',
@@ -43,8 +46,6 @@ export class VehiclesPage implements OnInit, AfterViewInit {
     'veh_listing_type',
     'trim',
     'body_type',
-    'color',
-    'engine',
     'actions',
   ];
 
@@ -71,7 +72,7 @@ export class VehiclesPage implements OnInit, AfterViewInit {
     this.applyFilter();
   }
 
-  filterByReseller(resellerId: number | null) {
+  filterByRooftop(resellerId: number | null) {
     this.filterValues.resellerId = resellerId;
     this.applyFilter();
   }
@@ -80,8 +81,8 @@ export class VehiclesPage implements OnInit, AfterViewInit {
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 
-  viewMore() {
-    console.log('view more');
+  viewMore(el: Vehicle) {
+    this.router.navigateByUrl(`vehicles-details/${el.id}`);
   }
 
   ngOnInit(): void {
