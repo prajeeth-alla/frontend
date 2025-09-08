@@ -1,5 +1,12 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Vehicle, Vehicle360SpinList, VehicleDetail, VehicleImagesList, VehicleVideoList } from '../../models/vehicle.model';
+import {
+  Vehicle,
+  Vehicle360SpinList,
+  VehicleDetail,
+  VehicleForm,
+  VehicleImagesList,
+  VehicleVideoList,
+} from '../../models/vehicle.model';
 import { Observable, of, tap } from 'rxjs';
 import { ApiService } from '../api-service/api-service';
 import { Rooftop } from '../../models/rooftops.model';
@@ -57,7 +64,7 @@ export class VehicleService {
       return this.apiService.get<VehicleImagesList>(`/images/vehicle/7`);
     }
   }
-  
+
   getVehicle360Spin(vehicleId: number) {
     if (this.helper.isMock) {
       const vehicleDetails = this.helper.binarySearch(VEHICLES_DETAILS_MOCK, vehicleId, 'id');
@@ -76,5 +83,17 @@ export class VehicleService {
         .get<Rooftop[]>('rooftops')
         .pipe(tap((rooftops) => this.rooftops$.set(rooftops)));
     }
+  }
+
+  addNewVehicle(vehicleFormData: VehicleForm): Observable<any> {
+    return this.apiService.post('vehicles', vehicleFormData);
+  }
+
+  updateVehicleData(vehicleFormData: VehicleForm, vehicleId: number): Observable<any> {
+    return this.apiService.put(`vehicles/${vehicleId}`, vehicleFormData);
+  }
+
+  deleteVehicleData(vehicleId: number): Observable<any> {
+    return this.apiService.delete(`vehicles/${vehicleId}`);
   }
 }

@@ -3,19 +3,21 @@
   <div class="table-head-section">
     <h3>Vehicles</h3>
     <div class="filters">
-  
       <app-search-field (search)="handleSearch($event)" (iconClick)="handleSearch($event)" />
-  
+      
       <app-select-field
-        label="Rooftops"
-        placeholder="Filter by Rooftops"
-        [options]="rooftopsDropDownOptions"
-        [enableClear]="true"
-        (selectionChange)="filterByRooftop($event)"
+      label="Rooftops"
+      placeholder="Filter by Rooftops"
+      [options]="rooftopsDropDownOptions"
+      [enableClear]="true"
+      (selectionChange)="filterByRooftop($event)"
       >
-      </app-select-field>
-    </div>
+    </app-select-field>
   </div>
+</div>
+<div class="action-buttons">
+  <button class="size-sm" (click)="addVehicle()" matButton="filled">Add Vehicle</button>
+</div>
 
   <table mat-table [dataSource]="dataSource" class="full-width-table" matSort>
     <!-- ID Column -->
@@ -63,8 +65,10 @@
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let element" class="actions-items">
         <button class="size-sm" (click)="viewMore(element)" matButton="filled">View More</button>
+        <button class="size-sm" (click)="editVehicle(element)" matButton="filled"><mat-icon>edit</mat-icon> Edit</button>
+        <button class="size-sm" (click)="deleteVehicle(element)" matButton="filled"><mat-icon>delete</mat-icon>Delete</button>
       </td>
     </ng-container>
 

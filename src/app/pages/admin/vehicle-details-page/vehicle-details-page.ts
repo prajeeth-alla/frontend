@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { VehicleService } from '../../../core/services/vehicle-service/vehicle-service';
@@ -42,6 +42,7 @@ export class VehicleDetailsPage implements OnInit {
   private vehicleId: number = 0;
   private readonly route = inject(ActivatedRoute);
   private readonly vehicleService = inject(VehicleService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   public vehicleVideo: VehicleVideo | undefined;
 
@@ -61,6 +62,7 @@ export class VehicleDetailsPage implements OnInit {
       .subscribe((data) => {
         this.vehicleDetails = data;
         console.log(this.vehicleDetails);
+        this.cdr.detectChanges();
       });
   }
 
@@ -70,6 +72,7 @@ export class VehicleDetailsPage implements OnInit {
       .subscribe((vehicleImagesList: VehicleImagesList | undefined) => {
         if (vehicleImagesList) {
           this.vehicleImages = vehicleImagesList;
+          this.cdr.detectChanges();
         }
       });
   }
@@ -79,7 +82,9 @@ export class VehicleDetailsPage implements OnInit {
       .getVehicleVideo(this.vehicleId)
       .subscribe((vehicleVideos: VehicleVideoList | null | undefined) => {
         if (vehicleVideos) {
+          vehicleVideos[0].clipUrl = "https://videos.pexels.com/video-files/14052141/14052141-hd_1920_1080_25fps.mp4"
           this.vehicleVideo = vehicleVideos[0];
+          this.cdr.detectChanges();
         }
       });
   }
@@ -89,7 +94,9 @@ export class VehicleDetailsPage implements OnInit {
       .getVehicle360Spin(this.vehicleId)
       .subscribe((vehicle360SpinList: Vehicle360SpinList | null | undefined) => {
         if (vehicle360SpinList) {
+          vehicle360SpinList[0].playerUrl = "https://media.flickfusion.net/p/360?video_fk=500B46A5-E64F-0B13-E892-D1A6F69C5EC9";
           this.vehicle360Spin = vehicle360SpinList[0];
+          this.cdr.detectChanges();
         }
       });
   }

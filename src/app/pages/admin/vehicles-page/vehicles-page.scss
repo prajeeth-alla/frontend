@@ -3,11 +3,18 @@
   justify-content: space-between;
 }
 
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
 .size-sm {
   height: 30px; /* Adjust as needed */
   min-width: unset; /* Remove default min-width if desired */
   padding: 0 12px; /* Reduce horizontal padding */
   font-size: 12px; /* Reduce font size */
+  margin: 0 5px;
 }
 
 

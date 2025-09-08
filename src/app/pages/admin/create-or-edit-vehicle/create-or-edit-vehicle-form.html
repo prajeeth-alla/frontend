@@ -1,0 +1,108 @@
+<div>
+  <h4>@if (isEditMode) { Update Vehicle } @else { Create Vehicle }</h4>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="vehicle-form">
+  <div class="form-fields-wrapper">
+    <!-- Rooftop Dropdown -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Rooftop</mat-label>
+      <mat-select formControlName="rooftop_id">
+        <mat-option [value]="null">Select rooftop</mat-option>
+        @for (option of rooftopsDropDownOptions; track option.value) {
+        <mat-option [value]="option.value">{{ option.label }}</mat-option>
+        }
+      </mat-select>
+      @if (form.get('rooftop_id')?.errors?.['zod']) {
+      <mat-error>{{ form.get('rooftop_id')?.errors?.['zod'] }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Make -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Make</mat-label>
+      <input matInput placeholder="Enter Make" formControlName="make" />
+      @if (form.get('make')?.errors?.['zod']) {
+      <mat-error>{{ form.get('make')?.errors?.['zod'] }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Model -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Model</mat-label>
+      <input matInput placeholder="Enter Model" formControlName="model" />
+      @if (form.get('model')?.errors?.['zod']) {
+      <mat-error>{{ form.get('model')?.errors?.['zod'] }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Year -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Year</mat-label>
+      <input matInput type="number" placeholder="Enter Year" formControlName="year" />
+      @if (form.get('year')?.errors?.['zod']) {
+      <mat-error>{{ form.get('year')?.errors?.['zod'] }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Vehicle Listing Type -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Vehicle Type</mat-label>
+      <mat-select formControlName="veh_listing_type">
+        <mat-option [value]="null">Select type</mat-option>
+        @for (vehicleType of vehicleListTypes; track vehicleType) {
+        <mat-option [value]="vehicleType">{{ vehicleType }}</mat-option>
+        }
+      </mat-select>
+      @if (form.get('veh_listing_type')?.errors?.['zod']) {
+      <mat-error>{{ form.get('veh_listing_type')?.errors?.['zod'] }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Trim -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Trim</mat-label>
+      <input matInput placeholder="Enter Trim" formControlName="trim" />
+    </mat-form-field>
+
+    <!-- Body Type -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Body Type</mat-label>
+      <input matInput placeholder="Enter Body Type" formControlName="body_type" />
+    </mat-form-field>
+
+    <!-- Exterior Color -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Exterior Color</mat-label>
+      <input matInput placeholder="Enter Exterior Color" formControlName="ext_color" />
+    </mat-form-field>
+
+    <!-- Engine -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Engine</mat-label>
+      <input matInput placeholder="Enter Engine Type" formControlName="engine" />
+    </mat-form-field>
+
+    <!-- Miles -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Miles</mat-label>
+      <input matInput placeholder="Enter Miles" formControlName="miles" />
+    </mat-form-field>
+
+    <!-- Status -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Status</mat-label>
+      <input matInput placeholder="Enter Status" formControlName="status" />
+    </mat-form-field>
+  </div>
+
+  <!-- Form-level Zod Errors -->
+  @if (form.errors?.['zod']) {
+  <div class="form-error">{{ form.errors?.['zod'] }}</div>
+  }
+
+  <!-- Submit Button -->
+  <button mat-raised-button matButton="filled"  color="primary" type="submit" [disabled]="form.invalid">
+    @if (isEditMode) { Update Vehicle } @else { Create Vehicle }
+  </button>
+</form>

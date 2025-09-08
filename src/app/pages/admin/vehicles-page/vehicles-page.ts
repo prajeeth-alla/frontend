@@ -12,6 +12,7 @@ import { Option } from '../../../core/models/app.model';
 import { Helper } from '../../../core/services/helper/helper';
 import { Router } from '@angular/router';
 import { Vehicle } from '../../../core/models/vehicle.model';
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'app-vehicles-page',
@@ -25,7 +26,8 @@ import { Vehicle } from '../../../core/models/vehicle.model';
     MatSort,
     MatSortModule,
     MatSelectModule,
-  ],
+    MatIconModule
+],
   templateUrl: './vehicles-page.html',
   styleUrl: './vehicles-page.scss',
 })
@@ -108,5 +110,17 @@ export class VehiclesPage implements OnInit, AfterViewInit {
 
       return resellerMatch && searchMatch;
     };
+  }
+
+  addVehicle() {
+    this.router.navigateByUrl('/add-vehicle');
+  }
+
+  editVehicle(el: Vehicle) {
+    this.router.navigateByUrl(`/edit-vehicle/${el.id}`);
+  }
+
+  deleteVehicle(el: Vehicle) {
+    this.vehicleService.deleteVehicleData(el.id);
   }
 }

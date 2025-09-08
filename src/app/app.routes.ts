@@ -45,6 +45,18 @@ export const routes: Routes = [
           ),
         data: { breadcrumb: 'Vehicle Details' },
       },
+      {
+        path: 'add-vehicle',
+        loadComponent: () =>
+          import('./pages/admin/add-vehicle/add-vehicle').then((c) => c.AddVehicle),
+        data: { breadcrumb: 'AddVehicle' },
+      },
+      {
+        path: 'edit-vehicle/:vehicleId',
+        loadComponent: () =>
+          import('./pages/admin/edit-vehicle/edit-vehicle').then((c) => c.EditVehicle),
+        data: { breadcrumb: 'EditVehicle' },
+      },
     ],
   },
   { path: '**', redirectTo: '' },

@@ -2,12 +2,12 @@
   <div class="aspect-ratio">
     @if (isPlaying) {
     <div class="player">
-      <video #videoEl controls playsinline width="640" height="360"></video>
+      <video #videoEl controls playsinline width="640" height="360" appVideoFallback></video>
     </div>
     }@else {
 
     <div class="thumbnail" (click)="play()">
-      <img [src]="video.thumbUrl" [alt]="video.title || 'Video thumbnail'" />
+      <img [src]="video.thumbUrl" [alt]="video.title || 'Video thumbnail'" appImgFallback/>
       <button class="play-btn">▶</button>
     </div>
     }
