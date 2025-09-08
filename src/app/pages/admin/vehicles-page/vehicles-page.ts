@@ -12,7 +12,8 @@ import { Option } from '../../../core/models/app.model';
 import { Helper } from '../../../core/services/helper/helper';
 import { Router } from '@angular/router';
 import { Vehicle } from '../../../core/models/vehicle.model';
-import { MatIconModule } from "@angular/material/icon";
+import { MatIconModule } from '@angular/material/icon';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-vehicles-page',
@@ -26,8 +27,8 @@ import { MatIconModule } from "@angular/material/icon";
     MatSort,
     MatSortModule,
     MatSelectModule,
-    MatIconModule
-],
+    MatIconModule,
+  ],
   templateUrl: './vehicles-page.html',
   styleUrl: './vehicles-page.scss',
 })
@@ -57,6 +58,7 @@ export class VehiclesPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  private _snackBar = inject(MatSnackBar);
 
   constructor() {
     effect(() => {
@@ -121,6 +123,9 @@ export class VehiclesPage implements OnInit, AfterViewInit {
   }
 
   deleteVehicle(el: Vehicle) {
-    this.vehicleService.deleteVehicleData(el.id);
+    this.vehicleService.deleteVehicleData(el.id).subscribe((res) => {
+      console.log(res);
+      this._snackBar.open("Vehicle Deleted Successfully");
+    });
   }
 }
