@@ -13,7 +13,7 @@ import { Helper } from '../../../core/services/helper/helper';
 import { Router } from '@angular/router';
 import { Vehicle } from '../../../core/models/vehicle.model';
 import { MatIconModule } from '@angular/material/icon';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-vehicles-page',
@@ -58,7 +58,7 @@ export class VehiclesPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  private _snackBar = inject(MatSnackBar);
+  private readonly _snackBar = inject(MatSnackBar);
 
   constructor() {
     effect(() => {
@@ -71,7 +71,7 @@ export class VehiclesPage implements OnInit, AfterViewInit {
     });
   }
 
-  handleSearch(searchText: string) {
+  handleSearch(searchText: any) {
     this.filterValues.search = searchText;
     this.applyFilter();
   }
@@ -90,8 +90,12 @@ export class VehiclesPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.vehicleService.getAllVehicles().subscribe();
+    this.loadAllVehicles();
     this.vehicleService.getRooftops().subscribe();
+  }
+
+  loadAllVehicles() {
+    this.vehicleService.getAllVehicles().subscribe();
   }
 
   ngAfterViewInit() {
@@ -124,8 +128,8 @@ export class VehiclesPage implements OnInit, AfterViewInit {
 
   deleteVehicle(el: Vehicle) {
     this.vehicleService.deleteVehicleData(el.id).subscribe((res) => {
-      console.log(res);
-      this._snackBar.open("Vehicle Deleted Successfully");
+      this._snackBar.open('Vehicle Deleted Successfully');
+      this.loadAllVehicles();
     });
   }
 }

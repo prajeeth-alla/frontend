@@ -1,23 +1,29 @@
-
 <div class="mat-elevation-z8">
+  <div class="action-buttons">
+    <button
+      class="size-sm success-button"
+      (click)="addVehicle()"
+      mat-raised-button
+      matButton="elevated"
+    >
+      Add Vehicle
+    </button>
+  </div>
   <div class="table-head-section">
     <h3>Vehicles</h3>
     <div class="filters">
-      <app-search-field (search)="handleSearch($event)" (iconClick)="handleSearch($event)" />
-      
+      <app-search-field (searchEvent)="handleSearch($event)" [suffixIcon]="'search'" />
+
       <app-select-field
-      label="Rooftops"
-      placeholder="Filter by Rooftops"
-      [options]="rooftopsDropDownOptions"
-      [enableClear]="true"
-      (selectionChange)="filterByRooftop($event)"
+        label="Rooftops"
+        placeholder="Filter by Rooftops"
+        [options]="rooftopsDropDownOptions"
+        [enableClear]="true"
+        (selectionChange)="filterByRooftop($event)"
       >
-    </app-select-field>
+      </app-select-field>
+    </div>
   </div>
-</div>
-<div class="action-buttons">
-  <button class="size-sm" (click)="addVehicle()" matButton="filled">Add Vehicle</button>
-</div>
 
   <table mat-table [dataSource]="dataSource" class="full-width-table" matSort>
     <!-- ID Column -->
@@ -64,11 +70,17 @@
 
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef>Actions</th>
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element" class="actions-items">
-        <button class="size-sm" (click)="viewMore(element)" matButton="filled">View More</button>
-        <button class="size-sm" (click)="editVehicle(element)" matButton="filled"><mat-icon>edit</mat-icon> Edit</button>
-        <button class="size-sm" (click)="deleteVehicle(element)" matButton="filled"><mat-icon>delete</mat-icon>Delete</button>
+        <button class="size-sm" (click)="viewMore(element)" matButton="filled" color="primary">
+          View
+        </button>
+        <button class="size-sm info-button" (click)="editVehicle(element)" matButton="filled">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button class="size-sm" (click)="deleteVehicle(element)" matButton="filled" color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </ng-container>
 

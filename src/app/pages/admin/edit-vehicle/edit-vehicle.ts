@@ -45,7 +45,6 @@ export class EditVehicle implements OnInit {
       )
       .subscribe((data) => {
         this.vehicleDetails = this.transformToVehicleFormFieldsData(data);
-        console.log("vehicleDetails",this.vehicleDetails);
         this.cdr.detectChanges();
       });
   }

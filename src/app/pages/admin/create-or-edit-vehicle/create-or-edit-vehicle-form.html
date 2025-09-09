@@ -102,7 +102,12 @@
   }
 
   <!-- Submit Button -->
-  <button mat-raised-button matButton="filled"  color="primary" type="submit" [disabled]="form.invalid">
-    @if (isEditMode) { Update Vehicle } @else { Create Vehicle }
+  <button
+    mat-raised-button
+    [color]="isEditMode ? 'accent' : 'primary'"
+    type="submit"
+    [disabled]="form.invalid"
+  >
+    {{ isEditMode ? 'Update Vehicle' : 'Create Vehicle' }}
   </button>
 </form>

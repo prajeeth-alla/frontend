@@ -26,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-or-edit-vehicle',
@@ -42,6 +43,7 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class CreateOrEditVehicleForm implements OnChanges, OnInit, OnDestroy {
   vehicleListTypes = ['New', 'Used'];
+  private readonly router = inject(Router);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly fb = inject(FormBuilder);
   private readonly vehicleService = inject(VehicleService);
@@ -81,15 +83,6 @@ export class CreateOrEditVehicleForm implements OnChanges, OnInit, OnDestroy {
       this.cdr.detectChanges();
     });
     this.subscriptions.add(rooftopsSub);
-
-    // console.log('this.initialValue', this.initialValue);
-
-    // if (this.initialValue) {
-    //   this.isEditMode = true;
-    //   this.form.patchValue({
-    //     ...this.initialValue,
-    //   });
-    // }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -107,14 +100,13 @@ export class CreateOrEditVehicleForm implements OnChanges, OnInit, OnDestroy {
 
     if (result.success) {
       const payload: VehicleForm = result.data;
-      console.log('Ready to send payload', payload);
       if (this.isEditMode && this.vehicleId) {
         this.vehicleService.updateVehicleData(payload, this.vehicleId).subscribe((res) => {
-          console.log(res);
+          this.router.navigateByUrl('/vehicles-list');
         });
       } else {
         this.vehicleService.addNewVehicle(payload).subscribe((res) => {
-          console.log(res);
+          this.router.navigateByUrl('/vehicles-list');
         });
       }
     } else {

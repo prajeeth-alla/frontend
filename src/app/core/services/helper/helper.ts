@@ -34,11 +34,7 @@ export class Helper {
 
     while (left <= right) {
       const mid = Math.floor((left + right) / 2);
-      const midValue = sortedSource[mid][key] as Comparable;
-
-      console.log(midValue);
-      // console.log(target);
-      
+      const midValue = sortedSource[mid][key] as Comparable;    
       
       if (midValue === target) return sortedSource[mid];
       if (target < midValue) right = mid - 1;

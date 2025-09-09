@@ -10,8 +10,6 @@ export class ImgFallback {
 
   @HostListener('error')
   onError() {
-    console.log("test");
-    
     const element = this.el?.nativeElement;
     if (element) {
       if (element.src !== this.fallbackImg) {

@@ -14,7 +14,7 @@ export class MenuService {
 
   private initializeMenu(): void {
     const items: SideMenuItem[] = [
-      { label: 'Resellers', routerLink: '/resellers', icon: 'people' },
+      // { label: 'Resellers', routerLink: '/resellers', icon: 'people' },
       { label: 'Vehicles', routerLink: '/vehicles-list', icon: 'directions_car' },
     ];
     this.menuItemsSignal.set(items);

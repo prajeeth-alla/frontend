@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthLayout } from './layouts/auth-layout/auth-layout';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
-
 export const routes: Routes = [
   {
     path: 'auth',
@@ -58,6 +57,11 @@ export const routes: Routes = [
         data: { breadcrumb: 'EditVehicle' },
       },
     ],
+  },
+  {
+    path: 'theme',
+    loadComponent: () =>
+      import('./core/components/theme-preview/theme-preview').then((c) => c.ThemePreview),
   },
   { path: '**', redirectTo: '' },
 ];

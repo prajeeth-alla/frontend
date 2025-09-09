@@ -17,10 +17,15 @@
   margin: 0 5px;
 }
 
-
 .filters {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   column-gap: 20px;
+}
+
+.actions-items {
+  mat-icon {
+    margin-right: 0 !important;
+  }
 }

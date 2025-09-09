@@ -19,7 +19,10 @@
 
 <div class="grid-layout">
   <div class="vehicle-main-image">
-    <img src="https://gcb.vd.onl/clients/11764/images/500B46A5-E64F-0B13-E892-D1A6F69C5EC9/960/500B46A5-E64F-0B13-E892-D1A6F69C5EC9_f00010.jpg" alt="" />
+    <img
+      src="https://gcb.vd.onl/clients/11764/images/500B46A5-E64F-0B13-E892-D1A6F69C5EC9/960/500B46A5-E64F-0B13-E892-D1A6F69C5EC9_f00010.jpg"
+      alt=""
+    />
   </div>
   <div class="specs-section">
     <h3>SPECIFICATIONS</h3>
@@ -53,13 +56,13 @@
     }
 
     <div class="action-buttons">
-      <button matButton="filled" (click)="handleImageGallery()">
+      <button color="primary" matButton="filled" (click)="handleImageGallery()">
         <mat-icon>image</mat-icon> Images
       </button>
-      <button matButton="filled" (click)="handleVideo()">
+      <button color="primary" matButton="filled" (click)="handleVideo()">
         <mat-icon>play_circle</mat-icon> Videos
       </button>
-      <button matButton="filled" (click)="handle360Spin()">
+      <button color="primary" matButton="filled" (click)="handle360Spin()">
         <mat-icon>360</mat-icon> 360 Spin
       </button>
     </div>
@@ -67,21 +70,20 @@
 </div>
 
 <div class="preview-section">
-  @if (vehicleVideo) {
+  @if (vehicleImages) {
+  <div class="images-preview">
+    <h3>Vehicle Images</h3>
+    <app-image-gallery [images]="vehicleImages" />
+  </div>
+  } @if (vehicleVideo) {
   <div class="video-preview">
     <h3>{{ vehicleVideo.title }}</h3>
     <app-video-player [video]="vehicleVideo" />
   </div>
 
-  } @if (vehicleImages) {
-  <div class="images-preview">
-    <h3>Vehicle Images</h3>
-    <app-image-gallery [images]="vehicleImages" />
-  </div>
   } @if (vehicle360Spin) {
   <div class="spin-360">
     <app-spin-360 [spin360Data]="vehicle360Spin" />
   </div>
-
   }
 </div>

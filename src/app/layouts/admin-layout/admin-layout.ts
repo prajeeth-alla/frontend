@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -27,6 +27,8 @@ import { BreadcrumbComponent } from '../../core/components/breadcrumb/breadcrumb
   styleUrl: './admin-layout.scss',
 })
 export class AdminLayout implements OnInit {
+
+  private readonly cd = inject(ChangeDetectorRef);
   private readonly breakpointObserver = inject(BreakpointObserver);
   drawerMode: 'over' | 'side' | 'push' = 'side';
   sidebarOpened = true;
@@ -42,6 +44,8 @@ export class AdminLayout implements OnInit {
           this.drawerMode = 'side'; // permanent drawer on desktop
           this.sidebarOpened = true;
         }
+
+        this.cd.detectChanges();
       });
   }
 

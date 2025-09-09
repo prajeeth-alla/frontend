@@ -1,0 +1,39 @@
+@use '../themes/variables' as vars;
+
+@mixin theme-colors {
+  .primary-color {
+    color: vars.$primary-color;
+  }
+  .accent-color {
+    color: vars.$accent-color;
+  }
+  .warn-color {
+    color: vars.$warn-color;
+  }
+  .info-color {
+    color: vars.$info-color;
+  }
+
+  .primary-bg {
+    background-color: vars.$primary-color;
+    color: white;
+  }
+  .accent-bg {
+    background-color: vars.$accent-color;
+    color: white;
+  }
+  .warn-bg {
+    background-color: vars.$warn-color;
+    color: white;
+  }
+  .info-bg {
+    background-color: vars.$info-color;
+    color: white;
+  }
+}
+
+@mixin responsive-grid($min-width: 250px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: 1rem;
+}

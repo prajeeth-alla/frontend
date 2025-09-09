@@ -61,7 +61,6 @@ export class VehicleDetailsPage implements OnInit {
       )
       .subscribe((data) => {
         this.vehicleDetails = data;
-        console.log(this.vehicleDetails);
         this.cdr.detectChanges();
       });
   }
