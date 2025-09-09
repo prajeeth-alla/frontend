@@ -7,9 +7,6 @@
   .accent-color {
     color: vars.$accent-color;
   }
-  .warn-color {
-    color: vars.$warn-color;
-  }
   .info-color {
     color: vars.$info-color;
   }
@@ -20,10 +17,6 @@
   }
   .accent-bg {
     background-color: vars.$accent-color;
-    color: white;
-  }
-  .warn-bg {
-    background-color: vars.$warn-color;
     color: white;
   }
   .info-bg {
