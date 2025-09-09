@@ -40,8 +40,7 @@ export class VehicleService {
       const vehicleDetails = this.helper.binarySearch(VEHICLES_DETAILS_MOCK, vehicleId, 'id');
       return of(vehicleDetails);
     } else {
-      // return this.apiService.get<VehicleDetail>(`vehicles/${vehicleId}`);
-      return this.apiService.get<VehicleDetail>(`vehicles/7`);
+      return this.apiService.get<VehicleDetail>(`vehicles/${vehicleId}`);
     }
   }
 
@@ -50,8 +49,7 @@ export class VehicleService {
       const vehicleDetails = this.helper.binarySearch(VEHICLES_DETAILS_MOCK, vehicleId, 'id');
       return of(vehicleDetails?.videos);
     } else {
-      // return this.apiService.get<VehicleDetail>(`/videos/vehicle/${vehicleId}`);
-      return this.apiService.get<VehicleVideoList>(`/videos/vehicle/7`);
+      return this.apiService.get<VehicleVideoList>(`/videos/vehicle/${vehicleId}`);
     }
   }
 
@@ -60,8 +58,7 @@ export class VehicleService {
       const vehicleDetails = this.helper.binarySearch(VEHICLES_DETAILS_MOCK, vehicleId, 'id');
       return of(vehicleDetails?.images);
     } else {
-      // return this.apiService.get<VehicleImagesList>(`/images/vehicle/${vehicleId}`);
-      return this.apiService.get<VehicleImagesList>(`/images/vehicle/7`);
+      return this.apiService.get<VehicleImagesList>(`/images/vehicle/${vehicleId}`);
     }
   }
 
@@ -70,8 +67,7 @@ export class VehicleService {
       const vehicleDetails = this.helper.binarySearch(VEHICLES_DETAILS_MOCK, vehicleId, 'id');
       return of(vehicleDetails?.spins);
     } else {
-      // return this.apiService.get<Vehicle360SpinList>(`/spins/vehicle/${vehicleId}`);
-      return this.apiService.get<Vehicle360SpinList>(`/spins/vehicle/7`);
+      return this.apiService.get<Vehicle360SpinList>(`/spins/vehicle/${vehicleId}`);
     }
   }
 

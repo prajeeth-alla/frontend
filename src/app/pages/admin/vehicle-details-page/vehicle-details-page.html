@@ -54,36 +54,9 @@
       <span>{{ vehicleDetails?.status }}</span>
     </div>
     }
-
-    <div class="action-buttons">
-      <button color="primary" matButton="filled" (click)="handleImageGallery()">
-        <mat-icon>image</mat-icon> Images
-      </button>
-      <button color="primary" matButton="filled" (click)="handleVideo()">
-        <mat-icon>play_circle</mat-icon> Videos
-      </button>
-      <button color="primary" matButton="filled" (click)="handle360Spin()">
-        <mat-icon>360</mat-icon> 360 Spin
-      </button>
-    </div>
   </div>
 </div>
 
 <div class="preview-section">
-  @if (vehicleImages) {
-  <div class="images-preview">
-    <h3>Vehicle Images</h3>
-    <app-image-gallery [images]="vehicleImages" />
-  </div>
-  } @if (vehicleVideo) {
-  <div class="video-preview">
-    <h3>{{ vehicleVideo.title }}</h3>
-    <app-video-player [video]="vehicleVideo" />
-  </div>
-
-  } @if (vehicle360Spin) {
-  <div class="spin-360">
-    <app-spin-360 [spin360Data]="vehicle360Spin" />
-  </div>
-  }
+  <app-vehicle-preview-tabs [vehicleId]="vehicleId" [tabSequence]="TAB_SEQUENCE" />
 </div>

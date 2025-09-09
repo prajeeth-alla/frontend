@@ -48,14 +48,6 @@
   border: 1px solid #ddd;
 }
 
-.video-preview,
-.images-preview,
-.spin-360 {
-  margin-top: 50px;
-  padding: 20px;
-  border: .5px solid #ddd;
-}
-
 .spec-item {
   display: flex;
   align-items: center;
@@ -74,4 +66,9 @@
   margin: 24px 0;
   display: flex;
   column-gap: 10px;
+}
+
+
+.preview-section {
+  margin-top: 20px;
 }

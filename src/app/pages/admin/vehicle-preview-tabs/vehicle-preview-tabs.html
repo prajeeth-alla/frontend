@@ -1,0 +1,35 @@
+@if(tabSequence) {
+<mat-tab-group (selectedTabChange)="onTabChange($event)">
+  @for (tab of tabSequence; track tab.identifier) {
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>{{ tab.icon }}</mat-icon>
+      <span>{{ tab.title }}</span>
+    </ng-template>
+
+    <div class="tab-content">
+      @if (loading[tab.order]) {
+      <p>Loading...</p>
+      } @else if (tabContents[tab.order]) { @switch (tab.identifier) { @case ("IMAGES") {
+      <div class="images-preview">
+        <app-image-gallery [images]="tabContents[tab.order]" />
+      </div>
+      } @case ("VIDEOS") {
+      <div class="video-preview">
+        <div>
+          <h3>{{ tabContents[tab.order].title }}</h3>
+          <app-video-player [video]="tabContents[tab.order]" />
+        </div>
+      </div>
+      } @case ("SPIN_360") {
+      <div class="spin-360">
+        <app-spin-360 [spin360Data]="tabContents[tab.order]" />
+      </div>
+      } } } @else {
+      <p>No content yet</p>
+      }
+    </div>
+  </mat-tab>
+  }
+</mat-tab-group>
+}

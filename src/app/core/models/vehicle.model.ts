@@ -82,3 +82,10 @@ export interface VehicleForm {
   miles: string | null;
   status: string | null;
 }
+
+export interface TabItem {
+  order: number;
+  icon: string;
+  title: string;
+  identifier: 'IMAGES' | 'VIDEOS' | 'SPIN_360'; // restrict to known values
+}
