@@ -1,4 +1,32 @@
 <app-dynamicform
   [formConfig]="formConfig"
+  [editData]="editData"
   (formSubmit)="handleFormSubmit($event)">
 </app-dynamicform>
+<h3>Saved Forms</h3>
+
+<table border="1" width="100%" cellpadding="5" style="margin-top: 20px; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th>Full Name</th>
+      <th>Country</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Residency</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let f of savedForms">
+      <td>{{ f.fullName }}</td>
+      <td>{{ f.country }}</td>
+      <td>{{ f.age }}</td>
+      <td>{{ f.gender }}</td>
+      <td>{{ f.residency }}</td>
+      <td>
+        <button (click)="editForm(f.id)">Edit</button>
+        <button (click)="deleteForm(f.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

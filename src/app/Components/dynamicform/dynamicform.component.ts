@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
   Output,
+  SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -31,6 +32,7 @@ import { z, ZodError } from 'zod';
 })
 export class DynamicformComponent implements OnInit {
   @Input() formConfig: any;
+  @Input() editData: any;
   @Output() formSubmit = new EventEmitter<any>();
 
   private readonly fb = inject(FormBuilder);
@@ -42,6 +44,12 @@ export class DynamicformComponent implements OnInit {
       this.buildForm();
     } else {
       console.warn('formConfig is not yet loaded');
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['editData'] && this.editData) {
+      this.patchFormWithEditData();
     }
   }
 
@@ -59,6 +67,26 @@ export class DynamicformComponent implements OnInit {
     this.userForm = this.fb.group(group);
   }
 
+  private patchFormWithEditData() {
+    if (!this.editData) return;
+    const patchData = { ...this.editData };
+    if (patchData.password) {
+      patchData.confirmPassword = patchData.password;
+    }
+    this.userForm.patchValue(patchData);
+    this.formConfig.fields.forEach((field: any) => {
+      if (field.type === 'checkbox') {
+        const formArray: FormArray = this.userForm.get(field.name) as FormArray;
+        formArray.clear();
+        if (this.editData[field.name]) {
+          this.editData[field.name].forEach((val: string) =>
+            formArray.push(this.fb.control(val))
+          );
+        }
+      }
+    });
+  }
+  
   onCheckboxChange(event: any, fieldName: string) {
     const formArray: FormArray = this.userForm.get(fieldName) as FormArray;
     if (event.target.checked) {
@@ -87,7 +115,11 @@ export class DynamicformComponent implements OnInit {
       userZodSchema.parse(formValue);
       delete formValue.confirmPassword;
       console.log('Zod Validation Passed:', formValue);
+      if (this.editData?.id) {
+        formValue.id = this.editData.id;
+      }
       this.formSubmit.emit(formValue);
+      this.userForm.reset();
     } catch (err: any) {
       if (err instanceof ZodError) {
         console.error('Zod Validation Errors:', err.issues);

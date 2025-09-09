@@ -23,7 +23,12 @@ export function buildZodSchema(config: any) {
     }
 
     if (field.type === 'select' || field.type === 'radio') {
-      validator = z.string().min(1, `${field.label} is required`);
+      validator = z.string().nullable(); // allow null first
+      if (field.validations?.some((v: any) => v.name === 'required')) {
+        validator = validator.refine((val: string | null) => val !== null && val !== '', {
+          message: `${field.label} is required`,
+        });
+      }
     }
 
     if (field.type === 'checkbox') {
