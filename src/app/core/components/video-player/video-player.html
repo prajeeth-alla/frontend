@@ -7,8 +7,8 @@
     }@else {
 
     <div class="thumbnail" (click)="play()">
-      <img [src]="video.thumbUrl" [alt]="video.title || 'Video thumbnail'" appImgFallback/>
-      <button class="play-btn">▶</button>
+      <img [src]="video.thumbUrl" [alt]="video.title || 'Video thumbnail'" appImgFallback />
+      <button class="play-btn"><mat-icon>play_arrow</mat-icon></button>
     </div>
     }
   </div>

@@ -12,12 +12,13 @@ import RxPlayer from 'rx-player';
 import { VehicleVideo } from '../../models/vehicle.model';
 import { VideoFallback } from '../../directives/video-fallback/video-fallback';
 import { ImgFallback } from '../../directives/img-fallback/img-fallback';
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'app-video-player',
   templateUrl: './video-player.html',
   styleUrls: ['./video-player.scss'],
-  imports: [ImgFallback, VideoFallback]
+  imports: [ImgFallback, VideoFallback, MatIconModule]
 })
 export class VideoPlayer implements AfterViewChecked, OnDestroy {
   @Input({ required: true }) video!: VehicleVideo;
