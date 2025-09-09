@@ -17,8 +17,8 @@
       } @case ("VIDEOS") {
       <div class="video-preview">
         <div>
-          <h3>{{ tabContents[tab.order].title }}</h3>
-          <app-video-player [video]="tabContents[tab.order]" />
+            <app-video-player [video]="tabContents[tab.order]" />
+            <h3>{{ tabContents[tab.order].title }}</h3>
         </div>
       </div>
       } @case ("SPIN_360") {

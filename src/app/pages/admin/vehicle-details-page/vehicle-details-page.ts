@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { ActivatedRoute, ParamMap, RouterLink } from '@angular/router';
+import { catchError, EMPTY, switchMap, throwError } from 'rxjs';
 import { VehicleService } from '../../../core/services/vehicle-service/vehicle-service';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,6 +33,7 @@ import { VehiclePreviewTabs } from '../vehicle-preview-tabs/vehicle-preview-tabs
     VehiclePreviewTabs,
     NgStyle,
     MatTabsModule,
+    RouterLink
   ],
 })
 export class VehicleDetailsPage implements OnInit {
@@ -74,6 +75,10 @@ export class VehicleDetailsPage implements OnInit {
         switchMap((params: ParamMap) => {
           this.vehicleId = Number(params.get('vehicleId'));
           return this.vehicleService.getVehicleDetailsById(this.vehicleId);
+        }),
+        catchError(err => {
+          this.vehicleDetails = null;
+          return EMPTY
         })
       )
       .subscribe((data) => {

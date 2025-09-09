@@ -1,6 +1,6 @@
 .rx-player-wrapper {
   position: relative;
-  max-width: 960px;
+  // max-width: 1200px;
   margin: auto;
 }
 
@@ -8,6 +8,7 @@
 .aspect-ratio {
   position: relative;
   width: 100%;
+  height: 56.25%; // height override to match aspect ratio
   aspect-ratio: 16 / 9; // modern CSS, supported in all major browsers
   background: #000;
   border-radius: 10px;

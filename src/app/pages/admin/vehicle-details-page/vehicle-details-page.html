@@ -1,17 +1,18 @@
+@if(vehicleDetails) {
 <div class="vehicle-info">
   <div class="left">
-    <h1>{{ vehicleDetails?.make }} {{ vehicleDetails?.model }} ({{ vehicleDetails?.year }})</h1>
+    <h1>{{ vehicleDetails.make }} {{ vehicleDetails.model }} ({{ vehicleDetails.year }})</h1>
     <h3>
-      {{ vehicleDetails?.body_type }} | {{ vehicleDetails?.trim }} |
-      {{ vehicleDetails?.veh_listing_type }}
+      {{ vehicleDetails.body_type }} | {{ vehicleDetails.trim }} |
+      {{ vehicleDetails.veh_listing_type }}
     </h3>
   </div>
   <div class="right">
-    @if (vehicleDetails?.rooftop) {
+    @if (vehicleDetails.rooftop) {
     <h3>Rooftop</h3>
     <p>
-      {{ vehicleDetails?.rooftop?.name }}, {{ vehicleDetails?.rooftop.city }},
-      {{ vehicleDetails?.rooftop.state }}
+      {{ vehicleDetails.rooftop?.name }}, {{ vehicleDetails.rooftop.city }},
+      {{ vehicleDetails.rooftop.state }}
     </p>
     }
   </div>
@@ -26,32 +27,32 @@
   </div>
   <div class="specs-section">
     <h3>SPECIFICATIONS</h3>
-    @if (vehicleDetails?.miles) {
+    @if (vehicleDetails.miles) {
     <div class="spec-item">
       <mat-icon>flag</mat-icon>
       <strong>Miles:</strong>
-      <span>{{ vehicleDetails?.miles | miles }}</span>
+      <span>{{ vehicleDetails.miles | miles }}</span>
     </div>
-    } @if (vehicleDetails?.engine) {
+    } @if (vehicleDetails.engine) {
     <div class="spec-item">
       <mat-icon>settings</mat-icon>
       <strong>Engine:</strong>
-      <span>{{ vehicleDetails?.engine }}</span>
+      <span>{{ vehicleDetails.engine }}</span>
     </div>
-    } @if (vehicleDetails?.ext_color) {
+    } @if (vehicleDetails.ext_color) {
     <div class="spec-item">
       <mat-icon>format_color_fill</mat-icon>
       <strong>Color:</strong>
       <div
         class="color-indicator"
-        [ngStyle]="{ 'background-color': vehicleDetails?.ext_color }"
+        [ngStyle]="{ 'background-color': vehicleDetails.ext_color }"
       ></div>
     </div>
-    } @if (vehicleDetails?.status) {
+    } @if (vehicleDetails.status) {
     <div class="spec-item">
       <mat-icon>question_mark</mat-icon>
       <strong>Status:</strong>
-      <span>{{ vehicleDetails?.status }}</span>
+      <span>{{ vehicleDetails.status }}</span>
     </div>
     }
   </div>
@@ -60,3 +61,9 @@
 <div class="preview-section">
   <app-vehicle-preview-tabs [vehicleId]="vehicleId" [tabSequence]="TAB_SEQUENCE" />
 </div>
+
+}@else {
+  <span>Vehicle not found...!</span>
+  <div>Back to home page : <a [routerLink]="'/vehicle-list'">Home</a></div>
+  
+}
