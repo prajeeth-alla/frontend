@@ -63,36 +63,54 @@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Trim</mat-label>
       <input matInput placeholder="Enter Trim" formControlName="trim" />
+      @if (form.get('trim')?.errors?.['zod']) {
+      <mat-error>{{ form.get('trim')?.errors?.['zod'] }}</mat-error>
+      }
     </mat-form-field>
 
     <!-- Body Type -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Body Type</mat-label>
       <input matInput placeholder="Enter Body Type" formControlName="body_type" />
+      @if (form.get('body_type')?.errors?.['zod']) {
+      <mat-error>{{ form.get('body_type')?.errors?.['zod'] }}</mat-error>
+      }
     </mat-form-field>
 
     <!-- Exterior Color -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Exterior Color</mat-label>
       <input matInput placeholder="Enter Exterior Color" formControlName="ext_color" />
+      @if (form.get('ext_color')?.errors?.['zod']) {
+      <mat-error>{{ form.get('ext_color')?.errors?.['zod'] }}</mat-error>
+      }
     </mat-form-field>
 
     <!-- Engine -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Engine</mat-label>
       <input matInput placeholder="Enter Engine Type" formControlName="engine" />
+      @if (form.get('engine')?.errors?.['zod']) {
+      <mat-error>{{ form.get('engine')?.errors?.['zod'] }}</mat-error>
+      }
     </mat-form-field>
 
     <!-- Miles -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Miles</mat-label>
       <input matInput placeholder="Enter Miles" formControlName="miles" />
+      @if (form.get('miles')?.errors?.['zod']) {
+      <mat-error>{{ form.get('miles')?.errors?.['zod'] }}</mat-error>
+      }
     </mat-form-field>
 
     <!-- Status -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Status</mat-label>
       <input matInput placeholder="Enter Status" formControlName="status" />
+      @if (form.get('status')?.errors?.['zod']) {
+      <mat-error>{{ form.get('status')?.errors?.['zod'] }}</mat-error>
+      }
     </mat-form-field>
   </div>
 
@@ -102,11 +120,11 @@
   }
 
   <!-- Submit Button -->
+  <!-- [disabled]="form.invalid" -->
   <button
     mat-raised-button
     [color]="isEditMode ? 'accent' : 'primary'"
     type="submit"
-    [disabled]="form.invalid"
   >
     {{ isEditMode ? 'Update Vehicle' : 'Create Vehicle' }}
   </button>

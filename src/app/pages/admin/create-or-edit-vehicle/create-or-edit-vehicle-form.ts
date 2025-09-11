@@ -62,17 +62,17 @@ export class CreateOrEditVehicleForm implements OnChanges, OnInit, OnDestroy {
 
   constructor() {
     this.form = this.fb.group({
-      rooftop_id: [null],
-      make: [null, Validators.required],
-      model: [null, Validators.required],
-      year: [null],
-      veh_listing_type: [null],
-      trim: [null],
-      body_type: [null],
-      ext_color: [null],
-      engine: [null],
-      miles: [null],
-      status: [null],
+      rooftop_id: [1, Validators.required],
+      make: ['', Validators.required],
+      model: ['', Validators.required],
+      year: [new Date().getFullYear(), Validators.required],
+      veh_listing_type: ['New', Validators.required],
+      trim: ['', Validators.required],
+      body_type: ['', Validators.required],
+      ext_color: ['', Validators.required],
+      engine: ['', Validators.required],
+      miles: ['', Validators.required],
+      status: ['', Validators.required],
     });
   }
 
@@ -80,6 +80,7 @@ export class CreateOrEditVehicleForm implements OnChanges, OnInit, OnDestroy {
     // subscribe to rooftops and store subscription
     const rooftopsSub = this.vehicleService.getRooftops().subscribe((rooftops) => {
       this.rooftopsDropDownOptions = this.helper.toSelectOptions(rooftops, 'name', 'id');
+      const firstRooftop = this.rooftopsDropDownOptions[0];
       this.cdr.detectChanges();
     });
     this.subscriptions.add(rooftopsSub);
@@ -128,7 +129,6 @@ export class CreateOrEditVehicleForm implements OnChanges, OnInit, OnDestroy {
       const n = Number(coerced.year);
       coerced.year = Number.isFinite(n) ? n : null;
     }
-
     return coerced;
   }
 
